@@ -1,0 +1,99 @@
+[ -d ~/.zgen ] || git clone https://github.com/tarjoilija/zgen.git $HOME/.zgen
+
+. $HOME/.zgen/zgen.zsh
+
+if ! zgen saved; then
+  zgen oh-my-zsh
+  zgen oh-my-zsh "plugins/vi-mode"
+  # zgen oh-my-zsh "plugins/asdf"
+  # zgen oh-my-zsh plugins/bundler
+  # zgen oh-my-zsh plugins/rails
+
+  zgen load "dracula/zsh"
+  [ -L ~/.zgen/robbyrussell/oh-my-zsh-master/themes/dracula.zsh-themeo ] ||
+    ln -sf ~/.zgen/dracula/zsh-master/dracula.zsh-theme ~/.zgen/robbyrussell/oh-my-zsh-master/themes/dracula.zsh-theme
+  zgen oh-my-zsh "themes/dracula"
+
+  zgen load "zimfw/environment"
+  zgen load "zimfw/directory"
+  zgen load "zimfw/input"
+  zgen load "zimfw/utility"
+  # zgen load "zimfw/git"
+  zgen load "zimfw/ssh"
+
+  zgen load "zsh-users/zsh-history-substring-search"
+  zgen load "zsh-users/zsh-syntax-highlighting"
+  zgen load "zsh-users/zsh-autosuggestions"
+
+  if [ `whence fzf` > /dev/null ]; then
+    zgen load "junegunn/fzf" "shell/completion.zsh"
+    zgen load "junegunn/fzf" "shell/key-bindings.zsh"
+  fi
+
+  zgen load "b4b4r07/enhancd"
+
+  zgen save
+fi
+
+# zplug {{{
+
+# install zplug, if necessary
+# if [[ ! -d ~/.zplug ]]; then
+#   export ZPLUG_HOME=~/.zplug
+#   git clone https://github.com/zplug/zplug $ZPLUG_HOME
+# fi
+
+# source ~/.zplug/init.zsh
+
+# zplug "plugins/vi-mode", from:oh-my-zsh
+# zplug "plugins/asdf",    from:oh-my-zsh
+# zplug "plugins/bundler", from:oh-my-zsh
+# zplug "plugins/rails",   from:oh-my-zsh
+
+# zplug "b4b4r07/enhancd", use:init.sh
+# zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
+
+# zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
+
+# zplug "zimfw/environment", use:init.zsh
+# zplug "zimfw/directory",   use:init.zsh
+# zplug "zimfw/input",       use:init.zsh
+# zplug "zimfw/utility",     use:init.zsh
+# zplug "zimfw/utility",     of:"**/functions/*"
+# zplug "zimfw/ssh",         use:init.zsh
+# # zplug "zimfw/history",     use:init.zsh
+# zplug "zimfw/git",         use:init.zsh
+
+# # zplug "zimfw/zimfw", as:plugin, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/zimfw/zimfw ~/.zim"
+
+# # zmodules=(directory environment git git-info history input ssh utility \
+# #           prompt completion syntax-highlighting history-substring-search)
+
+# zhighlighters=(main brackets pattern cursor root)
+
+# zplug 'dracula/zsh', as:theme
+# # zplug denysdovhan/spaceship-prompt, use:spaceship.zsh, from:github, as:theme
+
+# zplug "zsh-users/zsh-history-substring-search", defer:2
+# zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# zplug "zsh-users/zsh-autosuggestions", defer:3
+
+# # if [[ "$NAME" = "Ubuntu" ]]; then
+# #   zprompt_theme='eriner'
+# # else
+# #   zprompt_theme='liquidprompt'
+# # fi
+# # }}}
+
+# if ! zplug check --verbose; then
+#   zplug install
+# fi
+
+# zplug load #--verbose
+
+export FZF_COMPLETION_TRIGGER=';'
+export FZF_TMUX=1
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+
+# vi: ft=zsh
