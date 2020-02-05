@@ -18,7 +18,7 @@ if ! zgen saved; then
   zgen load "zimfw/directory"
   zgen load "zimfw/input"
   zgen load "zimfw/utility"
-  # zgen load "zimfw/git"
+  zgen load "zimfw/git"
   zgen load "zimfw/ssh"
 
   zgen load "zsh-users/zsh-history-substring-search"
