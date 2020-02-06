@@ -33,6 +33,21 @@ if [ ! -d ~/src/git-extras ]; then
   make install
 fi
 
+# install lein
+sudo apt install openjdk-11-jdk
+sudo apt install ca-certificates-java
+sudo update-ca-certificates -f
+
+wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+lein
+
+sudo chmod a+x /usr/local/bin/lein
+sudo lein upgrade
+
+# install python3
+sudo apt upgrade python3
+sudo apt install python3-pip
+sudo apt install python3-venv
 
 exit 0
 
