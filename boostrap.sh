@@ -49,5 +49,11 @@ sudo apt upgrade python3
 sudo apt install python3-pip
 sudo apt install python3-venv
 
+# others
+apt-get install silversearcher-ag
+
+sudo apt-get install tig
+sudo apt-get install htop
+
 exit 0
 
