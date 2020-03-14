@@ -22,7 +22,7 @@ Plug 'tpope/vim-cucumber'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'majutsushi/tagbar' " list all methods in a file
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+" Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
 "ruby
 Plug 'vim-ruby/vim-ruby'
@@ -39,9 +39,7 @@ Plug 'tpope/vim-dispatch'
 " Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 " Plug 'guns/vim-sexp'
 " Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'davidhalter/jedi-vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'ap/vim-buftabline'
+" Plug 'davidhalter/jedi-vim'
 Plug 'tpope/vim-commentary'
 Plug 'neomake/neomake'
 
@@ -65,6 +63,8 @@ Plug 'tpope/vim-fugitive'
 "================================================
 " Enhance Vim
 "================================================
+Plug 'ap/vim-buftabline'
+Plug 'jiangmiao/auto-pairs'
 Plug 'austintaylor/vim-indentobject'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-commentary'
@@ -98,7 +98,6 @@ set noswapfile
 set shiftwidth=2
 set tabstop=2
 set autoindent
-set nohlsearch
 
 set scrolloff=3
 
@@ -144,6 +143,11 @@ nnoremap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 nnoremap <leader>p obinding.pry<Esc>
 nnoremap <leader>co oconsole.log();<Left><Left>
+
+hi Visual term=reverse cterm=reverse ctermbg=black guibg=grey60
+" highlight Search guibg='Purple' guifg='NONE'
+highlight Search term=reverse cterm=reverse ctermbg=black guibg=grey60
+" highlight Normal ctermbg=black ctermfg=white
 
 " https://github.com/neovim/neovim/issues/7994#issuecomment-388296360
 au InsertLeave * set nopaste

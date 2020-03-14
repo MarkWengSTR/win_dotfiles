@@ -1,15 +1,16 @@
 # shell environment initialization {{{
 
-if [[ ! -d ~/.win_dotfiles ]]; then
-  git clone https://github.com/MarkWengSTR/win_dotfile.git ~/.win_dotfiles
+# if [[ ! -d ~/.dotfiles ]]; then
+#   git clone https://github.com/MarkWengSTR/dotfile.git ~/.dotfiles
 
-  ln -sf ~/.win_dotfiles/tigrc               ~/.tigrc
-  ln -sf ~/.win_dotfiles/tmux.conf           ~/.tmux.conf
-  ln -sf ~/.win_dotfiles/vimrc               ~/.vimrc
-  ln -sf ~/.win_dotfiles/vimrc.local         ~/.vimrc.local
-  ln -sf ~/.win_dotfiles/vimrc.bundles       ~/.vimrc.bundles
-  ln -sf ~/.win_dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
-fi
+#   ln -sf ~/dotfiles/gemrc               ~/.gemrc
+# # ln -sf ~/.dotfiles/inputrc             ~/.inputrc
+# # ln -sf ~/.dotfiles/psqlrc              ~/.psqlrc
+#   # ln -sf ~/dotfiles/tigrc               ~/.tigrc
+#   # ln -sf ~/dotfiles/tmux.conf           ~/.tmux.conf
+#   # ln -sf ~/dotfiles/vimrc.local         ~/.vimrc.local
+#   # ln -sf ~/dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
+# fi
 
 # if [[ ! -d ~/.maximum-awesome ]]; then
 #   git clone git://github.com/square/maximum-awesome.git ~/.maximum-awesome
@@ -23,9 +24,11 @@ fi
 # fi
 
 # }}}
-
 # zplug {{{
 . ~/.zplugin
+
+ zgen oh-my-zsh plugins/git
+ zgen oh-my-zsh plugins/asdf
 
 # install zplug, if necessary
 # if [[ ! -d ~/.zplug ]]; then
@@ -43,8 +46,8 @@ fi
 # zplug "plugins/git",     from:oh-my-zsh
 # zplug "plugins/utility", from:oh-my-zsh
 # zplug "plugins/ssh", from:oh-my-zsh
-# # zplug "plugins/zsh-history-substring-search", from:oh-my-zsh
-# # zplug "plugins/zsh-syntax-highlighting", from:oh-my-zsh
+# zplug "plugins/zsh-history-substring-search", from:oh-my-zsh
+# zplug "plugins/zsh-syntax-highlighting", from:oh-my-zsh
 
 # zplug "b4b4r07/enhancd", use:init.sh
 # zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
@@ -83,6 +86,9 @@ fi
 # disable START/STOP output control (<C-S>, <C-Q>)
 stty -ixon # disable XON/XOFF flow control
 
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
 # customization {{{
 
 # directory shortcut {{{
@@ -100,6 +106,8 @@ alias pa!='[[ -f config/puma.rb ]] && RAILS_RELATIVE_URL_ROOT=/`basename $PWD` b
 alias pa='[[ -f config/puma.rb ]] && RAILS_RELATIVE_URL_ROOT=/`basename $PWD` bundle exec puma -C $PWD/config/puma.rb -d'
 alias kpa='[[ -f tmp/pids/puma.state ]] && bundle exec pumactl -S tmp/pids/puma.state stop'
 
+alias v='nvim'
+alias vim='nvim'
 alias mc='mailcatcher --http-ip 0.0.0.0'
 alias kmc='pkill -fe mailcatcher'
 alias sk='[[ -f config/sidekiq.yml ]] && bundle exec sidekiq -C $PWD/config/sidekiq.yml -d'
@@ -109,16 +117,7 @@ alias dump_db='/vagrant/scripts/dump_db.zsh'
 alias mg='rake db:migrate'
 alias rb='rake db:rollback'
 alias rgm='rails generate migration'
-alias g='git'
-alias gs='git status'
-alias gb='git branch'
-alias gcom='git checkout master'
-alias gdm='git diff master...'
-alias gdfH='git diff HEAD'
 alias gsh='git stash'
-alias gc='cop master... && git commit --verbose'
-alias gpcc='cop master... && gpc'
-alias gda='git add .'
 alias ll='ls -al'
 alias eee='exit'
 alias skmg="rake db:migrate SKIP_PATCHING_MIGRATION='skip_any_patching_related_migrations'"
@@ -144,18 +143,93 @@ alias -g P='| $PAGER'
 alias -g WC='| wc -l'
 alias -g RE='RESCUE=1'
 
-alias va=vagrant
-alias vsh='va ssh'
-alias vsf='va ssh -- -L 0.0.0.0:8080:localhost:80 -L 1080:localhost:1080'
-alias vup='va up'
-alias vsup='va suspend'
-alias vhalt='va halt'
+# git 
+alias g='git'
 
-alias gws=gwS
-alias gba='gb -a'
+alias ga='git add'
+alias gaa='git add --all'
+alias gapa='git add --patch'
+alias gau='git add --update'
+alias gav='git add --verbose'
+alias gap='git apply'
+
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias gbD='git branch -D'
+alias gbl='git blame -b -w'
+alias gbnm='git branch --no-merged'
+alias gbr='git branch --remote'
+alias gbs='git bisect'
+alias gbsb='git bisect bad'
+alias gbsg='git bisect good'
+alias gbsr='git bisect reset'
+alias gbss='git bisect start'
+
+alias gc!='git commit -v --amend'
+alias gcn!='git commit -v --no-edit --amend'
+alias gca='git commit -v -a'
+alias gca!='git commit -v -a --amend'
+alias gcan!='git commit -v -a --no-edit --amend'
+alias gcans!='git commit -v -a -s --no-edit --amend'
+alias gcam='git commit -a -m'
+alias gcsm='git commit -s -m'
+alias gcb='git checkout -b'
+alias gcf='git config --list'
+alias gcl='git clone --recurse-submodules'
+alias gclean='git clean -id'
+alias gpristine='git reset --hard && git clean -dffx'
+alias gcm='git checkout master'
+alias gcd='git checkout develop'
+alias gcmsg='git commit -m'
+alias gco='git checkout'
+alias gcount='git shortlog -sn'
+alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
+alias gcs='git commit -S'
+alias gc='cop master... && git commit --verbose'
+alias gpcc='cop master... && gpc'
+
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gdcw='git diff --cached --word-diff'
+alias gdct='git describe --tags $(git rev-list --tags --max-count=1)'
+alias gds='git diff --staged'
+alias gdt='git diff-tree --no-commit-id --name-only -r'
+alias gdw='git diff --word-diff'
+alias gdm='git diff master...'
+alias gdfH='git diff HEAD'
+
+function gdv() { git diff -w "$@" | view - }
+compdef _git gdv=git-diff
+
+alias gf='git fetch'
+alias gfa='git fetch --all --prune'
+alias gfo='git fetch origin'
+
+alias gfg='git ls-files | grep'
+
+alias gg='git gui citool'
+alias gga='git gui citool --amend'
+
+# goto dirt
+alias sbox='cd /mnt/c/Users/bskin/Documents/sandbox'
+alias docu='cd /mnt/c/Users/bskin/Documents'
+alias u_rp='cd /mnt/c/Users/bskin/Documents/u_report'
+
+# alias va=vagrant
+# alias vsh='va ssh'
+# alias vsf='va ssh -- -L 0.0.0.0:8080:localhost:80 -L 1080:localhost:1080'
+# alias vup='va up'
+# alias vsup='va suspend'
+# alias vhalt='va halt'
 
 pairg() { ssh -t $1 ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile=/dev/null' -p $2 -t vagrant@localhost 'tmux attach' }
 pairh() { ssh -S none -o 'ExitOnForwardFailure=yes' -R $2\:localhost:22222 -t $1 'watch -en 10 who' }
+
+ZSH_DISABLE_COMPFIX = true
 
 # cop() {
 #   local exts=('rb,thor,jbuilder')
@@ -325,3 +399,5 @@ bindkey ',,' cancel-whole-input
 # }}}
 
 # }}}
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
