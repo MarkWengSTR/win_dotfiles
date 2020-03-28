@@ -22,6 +22,7 @@ Plug 'tpope/vim-cucumber'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'majutsushi/tagbar' " list all methods in a file
+Plug 'neomake/neomake'
 " Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
 "ruby
@@ -30,8 +31,6 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 
 " clojure
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'tpope/vim-salve'
 Plug 'tpope/vim-fireplace'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-dispatch'
@@ -40,8 +39,6 @@ Plug 'tpope/vim-dispatch'
 " Plug 'guns/vim-sexp'
 " Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Plug 'davidhalter/jedi-vim'
-Plug 'tpope/vim-commentary'
-Plug 'neomake/neomake'
 
 "================================================
 " Javascript/HTML
@@ -97,7 +94,12 @@ set nowritebackup
 set noswapfile
 set shiftwidth=2
 set tabstop=2
-set autoindent
+" set autoindent
+"
+hi clear SpellBad
+hi SpellBad cterm=underline
+" Set style for gVim
+hi SpellBad gui=undercurl
 
 set scrolloff=3
 
@@ -121,15 +123,14 @@ nmap \ ,
 nnoremap ' `
 nnoremap ` '
 inoremap jj <ESC>
+nmap <leader>ww  :w<CR>
+imap <leader>ww  <ESC>:w<CR>
 noremap  ,, <C-\><C-N>
 noremap  0  ^
-noremap  9  $
+noremap  <C-R>e $
 noremap! ,, <C-\><C-N>
 snoremap ,, <C-\><C-N>
 
-nmap <leader>w  :w<CR>
-imap <leader>w  :w<CR>
-vmap <leader>w  :w<CR>
 noremap <leader>q  :wq!<CR>
 nnoremap <leader>=  <C-W>=
 nnoremap <leader>n  :set number! number?<CR>
@@ -140,9 +141,15 @@ nnoremap <leader>ew :e <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>es :sp <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>ev :vsp <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
-nnoremap <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+" nnoremap <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 nnoremap <leader>p obinding.pry<Esc>
 nnoremap <leader>co oconsole.log();<Left><Left>
+nnoremap <leader>pep :%! autopep8 -
+
+" python execute
+vmap <leader>rp :!python.exe<CR>
+nnoremap <leader>rp :!python.exe %<CR>
+" nnoremap <leader><leader>fpy ggVG:!python.exe<CR>
 
 hi Visual term=reverse cterm=reverse ctermbg=black guibg=grey60
 " highlight Search guibg='Purple' guifg='NONE'
@@ -402,19 +409,19 @@ autocmd ColorScheme * call MyCustomHighlights()
 "
 " neomake
 " python
-" When writing a buffer (no delay).
-call neomake#configure#automake('w')
-" When writing a buffer (no delay), and on normal mode changes (after 750ms).
-call neomake#configure#automake('nw', 750)
-" When reading a buffer (after 1s), and when writing (no delay).
-call neomake#configure#automake('rw', 1000)
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 500ms; no delay when writing).
+" " When writing a buffer (no delay).
+" call neomake#configure#automake('w')
+" " When writing a buffer (no delay), and on normal mode changes (after 750ms).
+" call neomake#configure#automake('nw', 750)
+" " When reading a buffer (after 1s), and when writing (no delay).
+" call neomake#configure#automake('rw', 1000)
+" " Full config: when writing or reading a buffer, and on changes in insert and
+" " normal mode (after 500ms; no delay when writing).
 call neomake#configure#automake('nrwi', 500)
-let g:neomake_python_enable_makers = ['pylint']
-" javascript
 let g:neomake_open_list = 2
 let g:neomake_open_list=0
+let g:neomake_python_enable_makers = ['pylint']
+" javascript
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 autocmd! BufWritePost * Neomake
@@ -426,11 +433,11 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 "autocmd BufWrite *.sql,*.c,*.py,*.java,*.js :Autoformat
 noremap <F3> :Autoformat<CR>
 
-"let g:autoformat_autoindent = 0
-"let g:autoformat_retab = 0
-"let g:autoformat_remove_trailing_spaces = 0
-"autocmd FileType vim,tex let b:autoformat_autoindent=0
-"gg=G :retab :RemoveTrailingSpaces
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
+" autocmd FileType vim,tex let b:autoformat_autoindent=0
+" gg=G :retab :RemoveTrailingSpaces
 
 " let g:formatdef_sqlformat = '"sqlformat --keywords upper -"'
 " let g:formatters_sql = ['sqlformat']
