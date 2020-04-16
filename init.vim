@@ -31,11 +31,12 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 
 " clojure
-Plug 'tpope/vim-fireplace'
+" Plug 'tpope/vim-fireplace'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-dispatch'
-" Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
-" Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
+
 " Plug 'guns/vim-sexp'
 " Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Plug 'davidhalter/jedi-vim'
@@ -50,6 +51,15 @@ Plug 'mxw/vim-jsx'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-ragtag'
 Plug 'othree/javascript-libraries-syntax.vim'
+
+"================================================
+" matlab
+"================================================
+" function! DoRemote(arg)
+"     UpdateRemotePlugins
+" endfunction
+" Plug 'daeyun/vim-matlab', { 'do': function('DoRemote')  }
+Plug 'vim-scripts/MatlabFilesEdition'
 
 "================================================
 " Git
@@ -72,6 +82,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
+
 call plug#end()
 
 silent! color nord
@@ -131,6 +142,11 @@ noremap  <C-R>e $
 noremap! ,, <C-\><C-N>
 snoremap ,, <C-\><C-N>
 
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
 noremap <leader>q  :wq!<CR>
 nnoremap <leader>=  <C-W>=
 nnoremap <leader>n  :set number! number?<CR>
@@ -142,14 +158,20 @@ nnoremap <leader>es :sp <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>ev :vsp <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
 " nnoremap <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
-nnoremap <leader>p obinding.pry<Esc>
+" nnoremap <leader>p obinding.pry<Esc>
 nnoremap <leader>co oconsole.log();<Left><Left>
-nnoremap <leader>pep :%! autopep8 -
+nnoremap <leader>pep :%! autopep8 -<CR>
 
 " python execute
+" for WSL
+vmap <leader>rp :!python3<CR>
+nnoremap <leader>rp :!python3 %<CR>
+" for windows
 vmap <leader>rp :!python.exe<CR>
-nnoremap <leader>rp :!python.exe %<CR>
-" nnoremap <leader><leader>fpy ggVG:!python.exe<CR>
+nnoremap <leader>wrp :!python.exe %<CR>
+
+" octave execute
+nnoremap <leader>oc :!octave-cli.exe %<CR>
 
 hi Visual term=reverse cterm=reverse ctermbg=black guibg=grey60
 " highlight Search guibg='Purple' guifg='NONE'
@@ -170,11 +192,24 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 " automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
 
+" buffer width
+nnoremap <leader><C-H> :vertical resize -10<CR>
+nnoremap <leader><C-J> :resize -10<CR>
+nnoremap <leader><C-K> :resize +10<CR>
+nnoremap <leader><C-L> :vertical resize +10<CR>
+
+
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'css': ['prettier'],
 \}
 let g:ale_fix_on_save = 1
+
+" conjure
+let g:conjure_map_prefix=","
+let g:conjure_log_direction="horizontal"
+let g:conjure_log_size_small=15
+
 
 " Disable documentation window
 set completeopt-=preview
@@ -418,9 +453,19 @@ autocmd ColorScheme * call MyCustomHighlights()
 " " Full config: when writing or reading a buffer, and on changes in insert and
 " " normal mode (after 500ms; no delay when writing).
 call neomake#configure#automake('nrwi', 500)
+let g:neomake_python_python_exe = 'python3'
 let g:neomake_open_list = 2
-let g:neomake_open_list=0
-let g:neomake_python_enable_makers = ['pylint']
+let g:neomake_open_list = 0
+let g:neomake_python_flake8_maker = {
+    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+    \ 'errorformat':
+        \ '%E%f:%l: could not compile,%-Z%p^,' .
+        \ '%A%f:%l:%c: %t%n %m,' .
+        \ '%A%f:%l: %t%n %m,' .
+        \ '%-G%.%#', }
+
+let g:neomake_python_enable_makers = ['flake8']
+" let g:neomake_python_enable_makers = ['pylint', 'flake8']
 " javascript
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']

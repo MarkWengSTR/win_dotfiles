@@ -1,3 +1,5 @@
+# open tmux
+
 # shell environment initialization {{{
 
 # if [[ ! -d ~/.dotfiles ]]; then
@@ -24,64 +26,55 @@
 # fi
 
 # }}}
-# zplug {{{
-. ~/.zplugin
 
- zgen oh-my-zsh plugins/git
- zgen oh-my-zsh plugins/asdf
 
+########################
+# Zplug
+########################
 # install zplug, if necessary
-# if [[ ! -d ~/.zplug ]]; then
-#   export ZPLUG_HOME=~/.zplug
-#   git clone https://github.com/zplug/zplug $ZPLUG_HOME
-# fi
+if [[ ! -d ~/.zplug ]]; then
+  export ZPLUG_HOME=~/.zplug
+  git clone https://github.com/zplug/zplug $ZPLUG_HOME
+fi
 
-# source ~/.zplug/init.zsh
+source ~/.zplug/init.zsh
 
-# zplug "plugins/vi-mode", from:oh-my-zsh
-# zplug "plugins/chruby",  from:oh-my-zsh
-# zplug "plugins/bundler", from:oh-my-zsh
-# zplug "plugins/rails",   from:oh-my-zsh
-# zplug "plugins/asdf",    from:oh-my-zsh
-# zplug "plugins/git",     from:oh-my-zsh
-# zplug "plugins/utility", from:oh-my-zsh
-# zplug "plugins/ssh", from:oh-my-zsh
-# zplug "plugins/zsh-history-substring-search", from:oh-my-zsh
-# zplug "plugins/zsh-syntax-highlighting", from:oh-my-zsh
+zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
 
-# zplug "b4b4r07/enhancd", use:init.sh
-# zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
+zplug "modules/git", from:prezto
 
-# # zplug "zsh-users/zsh-autosuggestions", defer:3
+zplug "modules/syntax-highlighting", from:prezto
+zstyle ':prezto:module:syntax-highlighting' color 'yes'
+zstyle ':prezto:module:directory' color 'yes'
 
-# zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
+zplug "modules/prompt", from:prezto
+zstyle ':prezto:module:prompt' theme 'cloud'
 
-# zplug 'dracula/zsh', as:theme
+zplug "modules/environment", from:prezto
+zplug "modules/completion", from:prezto
+zplug "modules/history", from:prezto
 
-# # zim {{{
-# zplug "zimfw/zimfw", as:plugin, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/zimfw/zimfw ~/.zim"
+# If this module is used in conjunction with the syntax-highlighting module, this module must be loaded after the syntax-highlighting module.
+zplug "modules/history-substring-search", from:prezto
+zstyle ':prezto:module:history-substring-search' color 'yes'
 
-# zmodules=(directory environment git git-info history input ssh utility \
-#           syntax-highlighting history-substring-search prompt completion)
+zplug "modules/autosuggestions", from:prezto
+zstyle ':prezto:module:autosuggestions' color 'yes'
+zstyle ':prezto:module:autosuggestions:color' found 'fg=white'
 
-# zhighlighters=(main brackets pattern cursor root)
-# # }}}
+zplug "modules/rsync", from:prezto
+zplug "modules/directory", from:prezto
 
-# if ! zplug check --verbose; then
-#   zplug install
-# fi
+if ! zplug check --verbose; then
+  zplug install
+fi
 
-# zplug load #--verbose
+zplug load #--verbose
 
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+source ~/.zplug/repos/junegunn/fzf/shell/key-bindings.zsh
+source ~/.zplug/repos/junegunn/fzf/shell/completion.zsh
 
-# source ~/.zplug/repos/junegunn/fzf/shell/key-bindings.zsh
-# source ~/.zplug/repos/junegunn/fzf/shell/completion.zsh
-
-# export FZF_COMPLETION_TRIGGER=';'
-# export FZF_TMUX=1
-
-# }}}
+export FZF_TMUX=1
 
 # disable START/STOP output control (<C-S>, <C-Q>)
 stty -ixon # disable XON/XOFF flow control
@@ -118,6 +111,8 @@ alias mg='rake db:migrate'
 alias rb='rake db:rollback'
 alias rgm='rails generate migration'
 alias gsh='git stash'
+alias gia='ga'
+alias gs='git status'
 alias ll='ls -al'
 alias eee='exit'
 alias skmg="rake db:migrate SKIP_PATCHING_MIGRATION='skip_any_patching_related_migrations'"
@@ -189,8 +184,9 @@ alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
 alias gcs='git commit -S'
-alias gc='cop master... && git commit --verbose'
+alias gc='git commit --verbose'
 alias gpcc='cop master... && gpc'
+alias gpc='git push --set-upstream origin $(git_current_branch)'
 
 alias gd='git diff'
 alias gdca='git diff --cached'
@@ -229,7 +225,7 @@ alias u_rp='cd /mnt/c/Users/bskin/Documents/u_report'
 pairg() { ssh -t $1 ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile=/dev/null' -p $2 -t vagrant@localhost 'tmux attach' }
 pairh() { ssh -S none -o 'ExitOnForwardFailure=yes' -R $2\:localhost:22222 -t $1 'watch -en 10 who' }
 
-ZSH_DISABLE_COMPFIX = true
+# ZSH_DISABLE_COMPFIX = true
 
 # cop() {
 #   local exts=('rb,thor,jbuilder')
