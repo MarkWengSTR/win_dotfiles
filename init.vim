@@ -10,6 +10,13 @@ Plug 'Yggdroot/indentLine'
 Plug 'Chiel92/vim-autoformat'
 
 "================================================
+" Blog
+"================================================
+Plug 'cespare/vim-toml'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+"================================================
 " Dev Tools
 "================================================
 Plug 'rking/ag.vim'
@@ -79,7 +86,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
-Plug 'pedrohdz/vim-yaml-folds'
+" Plug 'pedrohdz/vim-yaml-folds'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 
@@ -137,7 +144,8 @@ inoremap jj <ESC>
 nmap <leader>ww  :w<CR>
 imap <leader>ww  <ESC>:w<CR>
 noremap  ,, <C-\><C-N>
-noremap  0  ^
+noremap  L $
+noremap  H ^
 noremap  <C-R>e $
 noremap! ,, <C-\><C-N>
 snoremap ,, <C-\><C-N>
@@ -197,6 +205,16 @@ nnoremap <leader><C-H> :vertical resize -10<CR>
 nnoremap <leader><C-J> :resize -10<CR>
 nnoremap <leader><C-K> :resize +10<CR>
 nnoremap <leader><C-L> :vertical resize +10<CR>
+
+
+" markdown
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 
 let g:ale_fixers = {
@@ -266,8 +284,9 @@ function! s:init_qrpsqlpq()
     call RailsDetect()
   endif
   if !exists('b:rails_root')
-    let b:qrpsqlpq_db_name = 'postgres'
+    let b:qrpsqlpq_db_name = 'amoeba_development'
   endif
+  " let b:qrpsqlpq_db_name = 'nerv_development'
 endfunction
 
 if executable('psql')
@@ -477,6 +496,9 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 "let g:autoformat_verbosemode=1
 "autocmd BufWrite *.sql,*.c,*.py,*.java,*.js :Autoformat
 noremap <F3> :Autoformat<CR>
+
+let g:indentLine_color_term = 239
+" let g:indentLine_char = '|'
 
 " let g:autoformat_autoindent = 0
 " let g:autoformat_retab = 0
