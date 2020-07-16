@@ -170,6 +170,9 @@ nnoremap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>co oconsole.log();<Left><Left>
 nnoremap <leader>pep :%! autopep8 -<CR>
 
+" Don't copy the contents of an overwritten selection.
+vnoremap p "_dP
+
 " python execute
 " for WSL
 vmap <leader>rp :!python3<CR>
