@@ -54,6 +54,9 @@ apt-get install silversearcher-ag
 
 sudo apt-get install tig
 sudo apt-get install htop
+sudo apt install clang libclang-dev
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 exit 0
 

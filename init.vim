@@ -39,7 +39,7 @@ Plug 'tpope/vim-bundler'
 
 " clojure
 " Plug 'tpope/vim-fireplace'
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-dispatch'
 Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
@@ -67,6 +67,11 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " endfunction
 " Plug 'daeyun/vim-matlab', { 'do': function('DoRemote')  }
 Plug 'vim-scripts/MatlabFilesEdition'
+
+"================================================
+" php
+"================================================
+Plug 'shawncplus/phpcomplete.vim'
 
 "================================================
 " Git

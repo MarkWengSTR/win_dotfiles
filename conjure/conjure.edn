@@ -1,0 +1,1 @@
+{:conns {:cwd {:port #slurp-edn ".prepl-port"}}}
