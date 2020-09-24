@@ -403,6 +403,7 @@ set t_Co=256
 " Ale
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
+" python linter and fixers need pip install
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8']
