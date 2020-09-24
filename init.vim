@@ -12,9 +12,9 @@ Plug 'Chiel92/vim-autoformat'
 "================================================
 " Blog
 "================================================
-Plug 'cespare/vim-toml'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'cespare/vim-toml'
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
 
 "================================================
 " Dev Tools
@@ -22,25 +22,23 @@ Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch'
-Plug 'bootleq/vim-qrpsqlpq'
-Plug 'thinca/vim-quickrun'
+" Plug 'bootleq/vim-qrpsqlpq'
+" Plug 'thinca/vim-quickrun'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-cucumber'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'majutsushi/tagbar' " list all methods in a file
-Plug 'neomake/neomake'
+" Plug 'neomake/neomake'
 " Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
 "ruby
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'tpope/vim-rails'
+" Plug 'tpope/vim-bundler'
 
 " clojure
 " Plug 'tpope/vim-fireplace'
-Plug 'Valloric/YouCompleteMe'
-Plug 'tpope/vim-dispatch'
 Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
 
@@ -106,7 +104,7 @@ set softtabstop=2                                            " insert mode tab a
 set hidden
 set hlsearch
 set nowrap
-set list " show trailing spaces
+" set list " show trailing spaces
 " set cursorline
 set nostartofline
 set mouse=a
@@ -123,6 +121,9 @@ hi clear SpellBad
 hi SpellBad cterm=underline
 " Set style for gVim
 hi SpellBad gui=undercurl
+
+" Set hlsearch
+hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
 set scrolloff=3
 
@@ -151,7 +152,9 @@ imap <leader>ww  <ESC>:w<CR>
 noremap  ,, <C-\><C-N>
 noremap  L $
 noremap  H ^
-noremap  <C-R>e $
+noremap  <C-e>e $
+inoremap <C-e>e $
+inoremap <C-a>a ^
 noremap! ,, <C-\><C-N>
 snoremap ,, <C-\><C-N>
 
@@ -179,12 +182,7 @@ nnoremap <leader>pep :%! autopep8 -<CR>
 vnoremap p "_dP
 
 " python execute
-" for WSL
-vmap <leader>rp :!python3<CR>
-nnoremap <leader>rp :!python3 %<CR>
-" for windows
-vmap <leader>rp :!python.exe<CR>
-nnoremap <leader>wrp :!python.exe %<CR>
+vmap <leader>rp :!python %<CR>
 
 " octave execute
 nnoremap <leader>oc :!octave-cli.exe %<CR>
@@ -224,12 +222,6 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
-
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
-\}
-let g:ale_fix_on_save = 1
 
 " conjure
 let g:conjure_map_prefix=","
@@ -409,20 +401,28 @@ set t_Co=256
 " " }}}
 
 " Ale
-" let g:ale_sign_column_always = 1
-" let g:ale_set_highlights = 0
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'python': ['autopep8']
-" \}
-" let g:ale_statusline_format = ['E:%d', 'W:%d', 'ok']
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_lint_on_enter = 1
-" let g:ale_set_signs = 1
-" let g:ale_sign_error = 'x'
-" let g:ale_sign_warning = 'w'
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8']
+\}
+let g:ale_fixers = {
+\   'python': ['black', 'isort'],
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+
+let g:ale_statusline_format = ['E:%d', 'W:%d', 'ok']
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_lint_on_enter = 1
+let g:ale_set_signs = 1
+let g:ale_sign_error = 'x'
+let g:ale_sign_warning = 'w'
+"
 " Airline
 " let g:airline_left_sep  = ''
 " let g:airline_right_sep = ''
@@ -479,24 +479,25 @@ autocmd ColorScheme * call MyCustomHighlights()
 " call neomake#configure#automake('rw', 1000)
 " " Full config: when writing or reading a buffer, and on changes in insert and
 " " normal mode (after 500ms; no delay when writing).
-call neomake#configure#automake('nrwi', 500)
-let g:neomake_python_python_exe = 'python3'
-let g:neomake_open_list = 2
-let g:neomake_open_list = 0
-let g:neomake_python_flake8_maker = {
-    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
-    \ 'errorformat':
-        \ '%E%f:%l: could not compile,%-Z%p^,' .
-        \ '%A%f:%l:%c: %t%n %m,' .
-        \ '%A%f:%l: %t%n %m,' .
-        \ '%-G%.%#', }
+"
+" call neomake#configure#automake('nrwi', 500)
+" let g:neomake_python_python_exe = 'python'
+" let g:neomake_open_list = 2
+" let g:neomake_open_list = 0
+" let g:neomake_python_flake8_maker = {
+"     \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+"     \ 'errorformat':
+"         \ '%E%f:%l: could not compile,%-Z%p^,' .
+"         \ '%A%f:%l:%c: %t%n %m,' .
+"         \ '%A%f:%l: %t%n %m,' .
+"         \ '%-G%.%#', }
 
-let g:neomake_python_enable_makers = ['flake8']
-" let g:neomake_python_enable_makers = ['pylint', 'flake8']
-" javascript
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-autocmd! BufWritePost * Neomake
+" let g:neomake_python_enable_makers = ['flake8']
+" " let g:neomake_python_enable_makers = ['pylint', 'flake8']
+" " javascript
+" let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_jsx_enabled_makers = ['eslint']
+" autocmd! BufWritePost * Neomake
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
