@@ -57,7 +57,6 @@ Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-ragtag'
 Plug 'othree/javascript-libraries-syntax.vim'
 
-
 "================================================
 " matlab
 "================================================
@@ -118,9 +117,6 @@ set shiftwidth=2
 set tabstop=2
 " set autoindent
 "
-
-" set vue
-autocmd BufRead,BufNewFile *.vue setfiletype html
 
 " set color
 hi clear SpellBad
@@ -232,12 +228,6 @@ let g:conjure_log_direction="horizontal"
 let g:conjure_log_size_small=15
 
 
-" emmet
-let g:user_emmet_install_globa = 0
-autocmd FileType html,css EmmetInstall
-
-
-
 " Disable documentation window
 set completeopt-=preview
 let g:deoplete#enable_at_startup=1
@@ -293,9 +283,8 @@ let g:ale_linters = {
 let g:ale_python_flake8_options='--max-line-length=120'
 let g:ale_fixers = {
 \   'python': ['autopep8', 'isort'],
-\   'javascript': ['eslint'],
-\   'css': ['csslint'],
-\   'html': ['tidy'],
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
 \}
 let g:ale_fix_on_save = 1
 
