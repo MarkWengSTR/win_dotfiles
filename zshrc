@@ -12,17 +12,17 @@
 
 # shell environment initialization {{{
 
-# if [[ ! -d ~/.dotfiles ]]; then
-#   git clone https://github.com/MarkWengSTR/dotfile.git ~/.dotfiles
+if [[ ! -d ~/.dotfiles ]]; then
+  git clone https://github.com/MarkWengSTR/win_dotfile.git ~/.dotfiles
 
-#   ln -sf ~/dotfiles/gemrc               ~/.gemrc
-# # ln -sf ~/.dotfiles/inputrc             ~/.inputrc
-# # ln -sf ~/.dotfiles/psqlrc              ~/.psqlrc
-#   # ln -sf ~/dotfiles/tigrc               ~/.tigrc
-#   # ln -sf ~/dotfiles/tmux.conf           ~/.tmux.conf
-#   # ln -sf ~/dotfiles/vimrc.local         ~/.vimrc.local
-#   # ln -sf ~/dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
-# fi
+  # ln -sf ~/dotfiles/gemrc               ~/.gemrc
+# ln -sf ~/.dotfiles/inputrc             ~/.inputrc
+# ln -sf ~/.dotfiles/psqlrc              ~/.psqlrc
+  ln -sf ~/dotfiles/tigrc               ~/.tigrc
+  ln -sf ~/dotfiles/tmux.conf           ~/.tmux.conf
+  # ln -sf ~/dotfiles/vimrc.local         ~/.vimrc.local
+  # ln -sf ~/dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
+fi
 
 # if [[ ! -d ~/.maximum-awesome ]]; then
 #   git clone git://github.com/square/maximum-awesome.git ~/.maximum-awesome
@@ -154,7 +154,6 @@ alias pa!='bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:8080'
 # alias kpa='[[ -f tmp/pids/puma.state ]] && bundle exec pumactl -S tmp/pids/puma.state stop'
 
 alias v='nvim'
-alias vim='nvim'
 alias mc='mailcatcher --http-ip 0.0.0.0'
 alias kmc='pkill -fe mailcatcher'
 alias sk='[[ -f config/sidekiq.yml ]] && bundle exec sidekiq -C $PWD/config/sidekiq.yml -d'
