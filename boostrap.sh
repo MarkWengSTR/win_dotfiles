@@ -48,6 +48,7 @@ cd /tmp/tmux
 sh autogen.sh
 ./configure
 make && make install
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # install tig
 apt install -y libncursesw5-dev

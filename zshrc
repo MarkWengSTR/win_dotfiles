@@ -13,7 +13,7 @@
 # shell environment initialization {{{
 
 if [[ ! -d ~/.dotfiles ]]; then
-  git clone https://github.com/MarkWengSTR/win_dotfile.git ~/.dotfiles
+  git clone https://github.com/MarkWengSTR/win_dotfiles.git ~/.dotfiles
 
   # ln -sf ~/dotfiles/gemrc               ~/.gemrc
 # ln -sf ~/.dotfiles/inputrc             ~/.inputrc
@@ -119,7 +119,7 @@ stty start undef
 stty stop undef
 
 # asdf setting
-. $HOME/.asdf/asdf.sh
+# . $HOME/.asdf/asdf.sh
 # . $HOME/.asdf/completions/asdf.bash
 
 # User configuration
