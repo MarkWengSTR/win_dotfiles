@@ -34,12 +34,12 @@ cd /tmp/zsh
 ./configure --with-tcsetpgrp
 make && make check && sudo make install
 
-# install git
-apt install -y libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl1.0-dev
-git clone git://github.com/git/git.git /tmp/git --branch v2.25.0 --depth 1
-cd /tmp/git
-make all prefix=/usr/local
-make install prefix=/usr/local
+# # install git
+# apt install -y libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl1.0-dev
+# git clone git://github.com/git/git.git /tmp/git --branch v2.25.0 --depth 1
+# cd /tmp/git
+# make all prefix=/usr/local
+# make install prefix=/usr/local
 
 # install tmux
 apt install -y pkg-config libevent-dev bison
@@ -58,19 +58,19 @@ make ./configure
 make prefix=/usr/local
 make install prefix=/usr/local
 
-# install vim
-apt install -y exuberant-ctags
-git clone git://github.com/vim/vim.git /tmp/vim --branch v8.1.0117 --depth 1
-cd /tmp/vim
-./configure --with-features=big --enable-fail-if-missing
-make && make install
+# # install vim
+# apt install -y exuberant-ctags
+# git clone git://github.com/vim/vim.git /tmp/vim --branch v8.1.0117 --depth 1
+# cd /tmp/vim
+# ./configure --with-features=big --enable-fail-if-missing
+# make && make install
 
 # install neovim
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt-get update
 sudo apt-get install -y neovim
 mkdir -p ~/.config/nvim
-wget https://github.com/MarkWengSTR/win_dotfiles/blob/master/init.vim ~/.config/nvim/init.vim
+# wget https://github.com/MarkWengSTR/win_dotfiles/blob/master/init.vim ~/.config/nvim/init.vim
 
 if [[ -r /usr/local/bin/zsh ]]; then
   chsh -s /usr/local/bin/zsh
@@ -90,22 +90,24 @@ cd $HOME
 if [ ! -d $asdf_dir  ]; then
   echo "Installing asdf..."
   apt install jq -y # for asdf java
-  git clone https://github.com/asdf-vm/asdf.git /home/vagrant/.asdf --branch v0.8.0
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  . ~/.asdf/asdf.sh
 
   echo "asdf installation complete"
 else
   echo "asdf already installed"
 fi
 
-asdf plugin-add java    || true
-asdf plugin-add clojure || true
-asdf plugin-add rust    || true
-asdf plugin-add python  || true
-asdf plugin-add golang  || true
-asdf plugin-add ruby    || true
-asdf plugin-add nodejs  || true
+asdf plugin-add java    ||   true
+# asdf plugin-add nodejs  ||   true
+# asdf plugin-add clojure ||   true
+# asdf plugin-add rust    ||   true
+# asdf plugin-add python  ||   true
+# asdf plugin-add golang  ||   true
+# asdf plugin-add ruby    ||   true
 
-asdf install
+asdf install java openjdk-11 || true
+asdf global java openjdk-11
 
 exit 0
 # # install libreoffice
