@@ -153,7 +153,7 @@ alias pa!='bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:8080'
 # alias pa='[[ -f config/puma.rb ]] && RAILS_RELATIVE_URL_ROOT=/`basename $PWD` bundle exec puma -C $PWD/config/puma.rb -d tcp://127.0.0.1:8080'
 # alias kpa='[[ -f tmp/pids/puma.state ]] && bundle exec pumactl -S tmp/pids/puma.state stop'
 
-alias v='nvim'
+alias v='sudo nvim'
 alias mc='mailcatcher --http-ip 0.0.0.0'
 alias kmc='pkill -fe mailcatcher'
 alias sk='[[ -f config/sidekiq.yml ]] && bundle exec sidekiq -C $PWD/config/sidekiq.yml -d'

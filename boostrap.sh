@@ -70,12 +70,12 @@ make install prefix=/usr/local
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt-get update
 sudo apt-get install -y neovim
-mkdir -p ~/.config/nvim
+mkdir -p ~/.config/nvim/autoload
 # wget https://github.com/MarkWengSTR/win_dotfiles/blob/master/init.vim ~/.config/nvim/init.vim
 
-if [[ -r /usr/local/bin/zsh ]]; then
-  chsh -s /usr/local/bin/zsh
-fi
+# if [[ -r /usr/local/bin/zsh ]]; then
+#   chsh -s /usr/local/bin/zsh
+# fi
 
 # install yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
