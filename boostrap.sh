@@ -16,7 +16,7 @@ apt update
 DEBIAN_FRONTEND=noninteractive apt -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold" upgrade
 apt autoremove -y
 
-apt install -y curl htop silversearcher-ag poppler-utils tree unzip wget
+apt install -y curl htop silversearcher-ag poppler-utils tree unzip wget subversion
 apt install -y autoconf build-essential default-jdk libssl1.0-dev libreadline-dev \
                libxml2-dev libxslt1-dev zlib1g-dev libpq-dev libsqlite3-dev \
               python-dev python-pip python3-dev python3-pip nginx
@@ -92,6 +92,7 @@ if [ ! -d $asdf_dir  ]; then
   echo "Installing asdf..."
   apt install jq -y # for asdf java
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  chown ubuntu:ubuntu -R ~/.asdf/
   . ~/.asdf/asdf.sh
 
   echo "asdf installation complete"
