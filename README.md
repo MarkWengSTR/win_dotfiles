@@ -6,15 +6,12 @@
     - cp ~/win_dotfiles/zshrc ~/.zshrc 
 3. Tmux
     - cp ~/win_dotfiles/tmux.conf ~/.tmux.conf 
-    - split pane 左右切可能要改成 | ，不知道為什麼 \ 不行
-    - 跳pane是 \` + 上下左右，這個可以再慢慢改
 4. Neovim 
     - cd ~/.config/nvim  
     - cp ~/win_dotfiles/init.vim init.vim
     - (如果沒有autoload資料夾的話先 mkdir autoload ) & cd autoload  & 
 ```
-curl -fLo    
-plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 # Window 設定
