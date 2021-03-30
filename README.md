@@ -4,11 +4,11 @@
     - sudo sh boostrap.sh
 2. Zsh
     - cp ~/win_dotfiles/zshrc ~/.zshrc 
-3 Tmux
+3. Tmux
     - cp ~/win_dotfiles/tmux.conf ~/.tmux.conf 
     - split pane 左右切可能要改成 | ，不知道為什麼 \ 不行
     - 跳pane是 \` + 上下左右，這個可以再慢慢改
-4 Neovim 
+4. Neovim 
     - cd ~/.config/nvim  
     - cp ~/win_dotfiles/init.vim init.vim
     - (如果沒有autoload資料夾的話先 mkdir autoload ) & cd autoload  & 
