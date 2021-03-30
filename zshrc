@@ -16,10 +16,10 @@ if [[ ! -d ~/.dotfiles ]]; then
   git clone https://github.com/MarkWengSTR/win_dotfiles.git ~/.dotfiles
 
   # ln -sf ~/dotfiles/gemrc               ~/.gemrc
-# ln -sf ~/.dotfiles/inputrc             ~/.inputrc
-# ln -sf ~/.dotfiles/psqlrc              ~/.psqlrc
-  ln -sf ~/dotfiles/tigrc               ~/.tigrc
-  ln -sf ~/dotfiles/tmux.conf           ~/.tmux.conf
+# ln -sf ~/win_dotfiles/inputrc             ~/.inputrc
+# ln -sf ~/win_dotfiles/psqlrc              ~/.psqlrc
+  ln -sf ~/win_dotfiles/tigrc               ~/.tigrc
+  ln -sf ~/win_dotfiles/tmux.conf           ~/.tmux.conf
   # ln -sf ~/dotfiles/vimrc.local         ~/.vimrc.local
   # ln -sf ~/dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
 fi
