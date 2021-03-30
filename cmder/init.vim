@@ -38,9 +38,9 @@ Plug 'majutsushi/tagbar' " list all methods in a file
 " Plug 'tpope/vim-bundler'
 
 " clojure
-" Plug 'tpope/vim-fireplace'
-Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
-Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
+Plug 'tpope/vim-fireplace'
+" Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
+" Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
 
 " Plug 'guns/vim-sexp'
 " Plug 'tpope/vim-sexp-mappings-for-regular-people'
@@ -56,6 +56,7 @@ Plug 'mxw/vim-jsx'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-ragtag'
 Plug 'othree/javascript-libraries-syntax.vim'
+
 
 "================================================
 " matlab
@@ -118,6 +119,9 @@ set tabstop=2
 " set autoindent
 "
 
+" set vue
+autocmd BufRead,BufNewFile *.vue setfiletype html
+
 " set color
 hi clear SpellBad
 hi SpellBad cterm=underline
@@ -156,6 +160,8 @@ nnoremap ` '
 inoremap jj <ESC>
 nmap <leader>ww  :w<CR>
 imap <leader>ww  <ESC>:w<CR>
+imap <leader>a  <ESC>A
+imap <leader>2  <ESC>2la
 noremap  ,, <C-\><C-N>
 noremap  L $
 noremap  H ^
@@ -190,6 +196,9 @@ vnoremap p "_dP
 
 " python execute
 nnoremap <leader>rp :!python %<CR>
+
+" rust execute
+nnoremap <leader>cr :!cargo run %<CR>
 
 " https://github.com/neovim/neovim/issues/7994#issuecomment-388296360
 au InsertLeave * set nopaste
@@ -226,6 +235,12 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:conjure_map_prefix=","
 let g:conjure_log_direction="horizontal"
 let g:conjure_log_size_small=15
+
+
+" emmet
+let g:user_emmet_install_globa = 0
+autocmd FileType html,css EmmetInstall
+
 
 
 " Disable documentation window
@@ -283,8 +298,9 @@ let g:ale_linters = {
 let g:ale_python_flake8_options='--max-line-length=120'
 let g:ale_fixers = {
 \   'python': ['autopep8', 'isort'],
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
+\   'javascript': ['eslint'],
+\   'css': ['csslint'],
+\   'html': ['tidy'],
 \}
 let g:ale_fix_on_save = 1
 
