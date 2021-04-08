@@ -91,9 +91,11 @@ cd $HOME
 if [ ! -d $asdf_dir  ]; then
   echo "Installing asdf..."
   apt install jq -y # for asdf java
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
   chown ubuntu:ubuntu -R ~/.asdf/
   . ~/.asdf/asdf.sh
+  rm -rf ~/.asdf/shims
+  asdf reshim
 
   echo "asdf installation complete"
 else
@@ -101,12 +103,12 @@ else
 fi
 
 asdf plugin-add java    ||   true
-# asdf plugin-add nodejs  ||   true
-# asdf plugin-add clojure ||   true
-# asdf plugin-add rust    ||   true
-# asdf plugin-add python  ||   true
-# asdf plugin-add golang  ||   true
-# asdf plugin-add ruby    ||   true
+asdf plugin-add nodejs  ||   true
+asdf plugin-add clojure ||   true
+asdf plugin-add rust    ||   true
+asdf plugin-add python  ||   true
+asdf plugin-add golang  ||   true
+asdf plugin-add ruby    ||   true
 
 asdf install java openjdk-11 || true
 asdf global java openjdk-11

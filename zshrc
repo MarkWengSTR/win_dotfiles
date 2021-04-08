@@ -119,7 +119,7 @@ stty start undef
 stty stop undef
 
 # asdf setting
-# . $HOME/.asdf/asdf.sh
+. $HOME/.asdf/asdf.sh
 # . $HOME/.asdf/completions/asdf.bash
 
 # User configuration
