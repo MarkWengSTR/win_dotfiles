@@ -253,6 +253,7 @@ let g:conjure_log_size_small=15
 " emmet
 let g:user_emmet_install_globa = 0
 autocmd FileType html,css EmmetInstall
+let g:user_emmet_expandabbr_key = '<tab>'
 
 
 
