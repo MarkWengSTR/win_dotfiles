@@ -59,6 +59,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'andymass/vim-matchup'
 
 
+
 "================================================
 " matlab
 "================================================
@@ -317,8 +318,10 @@ let g:ale_linters = {
 let g:ale_python_flake8_options='--max-line-length=120'
 let g:ale_fixers = {
 \   'python': ['autopep8'],
-\   'javascript': ['eslint'],
 \   'php': ['phpcbf'],
+\   'javascript': ['eslint'],
+\   'css': ['csslint'],
+\   'html': ['tidy'],
 \}
 " \   'html': ['tidy'],
 let g:ale_fix_on_save = 1

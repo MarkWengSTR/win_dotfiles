@@ -16,7 +16,7 @@ apt update
 DEBIAN_FRONTEND=noninteractive apt -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold" upgrade
 apt autoremove -y
 
-apt install -y curl htop silversearcher-ag poppler-utils tree unzip wget
+apt install -y curl htop silversearcher-ag poppler-utils tree unzip wget subversion
 apt install -y autoconf build-essential default-jdk libssl1.0-dev libreadline-dev \
                libxml2-dev libxslt1-dev zlib1g-dev libpq-dev libsqlite3-dev \
               python-dev python-pip python3-dev python3-pip nginx
@@ -70,12 +70,12 @@ make install prefix=/usr/local
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt-get update
 sudo apt-get install -y neovim
-mkdir -p ~/.config/nvim
+mkdir -p ~/.config/nvim/autoload
 # wget https://github.com/MarkWengSTR/win_dotfiles/blob/master/init.vim ~/.config/nvim/init.vim
 
-if [[ -r /usr/local/bin/zsh ]]; then
-  chsh -s /usr/local/bin/zsh
-fi
+# if [[ -r /usr/local/bin/zsh ]]; then
+#   chsh -s /usr/local/bin/zsh
+# fi
 
 # install yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -91,8 +91,11 @@ cd $HOME
 if [ ! -d $asdf_dir  ]; then
   echo "Installing asdf..."
   apt install jq -y # for asdf java
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  chown ubuntu:ubuntu -R ~/.asdf/
   . ~/.asdf/asdf.sh
+  rm -rf ~/.asdf/shims
+  asdf reshim
 
   echo "asdf installation complete"
 else
@@ -100,12 +103,12 @@ else
 fi
 
 asdf plugin-add java    ||   true
-# asdf plugin-add nodejs  ||   true
-# asdf plugin-add clojure ||   true
-# asdf plugin-add rust    ||   true
-# asdf plugin-add python  ||   true
-# asdf plugin-add golang  ||   true
-# asdf plugin-add ruby    ||   true
+asdf plugin-add nodejs  ||   true
+asdf plugin-add clojure ||   true
+asdf plugin-add rust    ||   true
+asdf plugin-add python  ||   true
+asdf plugin-add golang  ||   true
+asdf plugin-add ruby    ||   true
 
 asdf install java openjdk-11 || true
 asdf global java openjdk-11
