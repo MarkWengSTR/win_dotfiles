@@ -19,8 +19,10 @@ curl -fLo plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-
 
 1. 先下載 cmder
 2.
-  - 到我的dotfile中找出cmder的setting, 把vimrc放到home目錄的user_aliases.cmd, user_profile.ps1 放到 C:\Users\bskin\cmder\config 中
-  - 把ohmyposhv3-will.omp.json 放到 ~/.ohmyposhv3-will.omp.json
+  - 到我的dotfile中找出 cmder 裡的 user_aliases.cmd, user_profile.ps1
+  - 把vimrc放進 ~ 目錄
+  - user_aliases.cmd, user_profile.ps1 放進 C:\Users\bskin\cmder\config
+  - 把ohmyposhv3-will.omp.json 複製到 ~/.ohmyposhv3-will.omp.json
   - 開啟powershell
 
 ## vim
