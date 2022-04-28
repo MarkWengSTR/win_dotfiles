@@ -8,6 +8,13 @@ Plug 'vim-scripts/Align'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'Chiel92/vim-autoformat'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"================================================
+" flutter
+"================================================
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
 
 "================================================
 " Blog
@@ -29,6 +36,7 @@ Plug 'tpope/vim-cucumber'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'majutsushi/tagbar' " list all methods in a file
+" Plug 'nickspoons/vim-sharpenup'
 " Plug 'neomake/neomake'
 " Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
@@ -38,9 +46,9 @@ Plug 'majutsushi/tagbar' " list all methods in a file
 " Plug 'tpope/vim-bundler'
 
 " clojure
-Plug 'tpope/vim-fireplace'
-" Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
-" Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
+" Plug 'tpope/vim-fireplace'
+Plug 'Olical/conjure', {'tag': 'v2.1.2', 'do': 'bin/compile'}
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 need run 'sudo apt install clang libclang-dev'
 
 " Plug 'guns/vim-sexp'
 " Plug 'tpope/vim-sexp-mappings-for-regular-people'
@@ -56,8 +64,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-ragtag'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'andymass/vim-matchup'
-
+Plug 'leafgarland/typescript-vim'
 
 
 "================================================
@@ -72,12 +79,7 @@ Plug 'vim-scripts/MatlabFilesEdition'
 "================================================
 " php
 "================================================
-" Plug 'shawncplus/phpcomplete.vim'
-Plug 'StanAngeloff/php.vim'
-Plug 'dsawardekar/wordpress.vim'
-Plug 'arnaud-lb/vim-php-namespace'
-Plug 'phpactor/phpactor', { 'for': 'php', 'branch': 'develop', 'do': 'composer install'  }
-
+Plug 'shawncplus/phpcomplete.vim'
 
 "================================================
 " Git
@@ -112,7 +114,7 @@ set softtabstop=2                                            " insert mode tab a
 set hidden
 set hlsearch
 set nowrap
-set list " show trailing spaces
+" set list " show trailing spaces
 " set cursorline
 set nostartofline
 set mouse=a
@@ -167,22 +169,20 @@ nnoremap ` '
 inoremap jj <ESC>
 nmap <leader>ww  :w<CR>
 imap <leader>ww  <ESC>:w<CR>
-inoremap <leader>a  <ESC>A
-inoremap <leader>2  <ESC>2la
-inoremap <leader>1  <ESC>1la
 noremap  ,, <C-\><C-N>
-noremap  L $
-noremap  H ^
-noremap  <C-e>e $
-inoremap <C-e>e $
-inoremap <C-a>a ^
+
+" like emacs
+noremap  <C-e> $
+inoremap <C-e> <ESC>$a
+noremap <C-a> ^
+inoremap <C-a> <ESC>^i
+noremap <C-f> l
+inoremap <C-f> <C-o>a
+noremap <C-b> h
+inoremap <C-b> <ESC>ha
+
 noremap! ,, <C-\><C-N>
 snoremap ,, <C-\><C-N>
-
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
 
 noremap <leader>q  :wq!<CR>
 nnoremap <leader>=  <C-W>=
@@ -204,14 +204,6 @@ vnoremap p "_dP
 
 " python execute
 nnoremap <leader>rp :!python %<CR>
-
-" php execute
-nnoremap <leader>pa :!vendor\bin\phpabf %<CR>
-nnoremap <leader>pc :!vendor\bin\phpcs %<CR>
-nnoremap <leader>php :!php %<CR>
-
-" rust execute
-nnoremap <leader>cr :!cargo run %<CR>
 
 " https://github.com/neovim/neovim/issues/7994#issuecomment-388296360
 au InsertLeave * set nopaste
@@ -244,6 +236,10 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
+
+
 " conjure
 let g:conjure_map_prefix=","
 let g:conjure_log_direction="horizontal"
@@ -253,9 +249,9 @@ let g:conjure_log_size_small=15
 " emmet
 let g:user_emmet_install_globa = 0
 autocmd FileType html,css EmmetInstall
-let g:user_emmet_expandabbr_key = '<tab>'
 
-
+"deoplete
+let g:deoplete#enable_at_startup = 1
 
 " Disable documentation window
 set completeopt-=preview
@@ -268,7 +264,7 @@ let g:deoplete#sources={}
 let g:deoplete#sources._    = ['around', 'buffer', 'file', 'ultisnips']
 let g:deoplete#sources.ruby = ['around', 'buffer', 'member', 'file', 'ultisnips']
 let g:deoplete#sources.vim  = ['around', 'buffer', 'member', 'file', 'ultisnips']
-let g:deoplete#sources['javascript.jsx'] = ['around', 'buffer', 'file', 'ultisnips', 'ternjs']
+" let g:deoplete#sources['javascript.jsx'] = ['around', 'buffer', 'file', 'ultisnips', 'ternjs']
 let g:deoplete#sources.css  = ['around', 'buffer', 'member', 'file', 'omni', 'ultisnips']
 let g:deoplete#sources.scss = ['around', 'buffer', 'member', 'file', 'omni', 'ultisnips']
 let g:deoplete#sources.html = ['around', 'buffer', 'member', 'file', 'omni', 'ultisnips']
@@ -303,27 +299,20 @@ vmap <Enter>   <Plug>(EasyAlign)
 
 
 " Ale
-" php PSR-1,2
-" let g:ale_php_phpcs_executable='./vendor/bin/phpcs'
-" let g:ale_php_phpcs_standard = 'PSR1,PSR2'
-let g:ale_php_phpcs_options = '-'
-
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'python': ['flake8'],
-\   'css': ['csslint'],
-\   'php': ['phpcs'],
+\   'python': ['flake8']
 \}
-let g:ale_python_flake8_options='--max-line-length=120'
+let g:ale_python_flake8_options='--max-line-length=200'
 let g:ale_fixers = {
-\   'python': ['autopep8'],
-\   'php': ['phpcbf'],
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['autopep8', 'isort'],
 \   'javascript': ['eslint'],
-\   'css': ['csslint'],
-\   'html': ['tidy'],
+\   'css': ['csslint']
 \}
+
 " \   'html': ['tidy'],
 let g:ale_fix_on_save = 1
 
@@ -336,7 +325,7 @@ let g:ale_set_signs = 1
 let g:ale_sign_error = 'x'
 let g:ale_sign_warning = 'w'
 
-" Jsx
+" " Jsx
 " let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 "for vim-autoformat
@@ -350,8 +339,3 @@ let g:indentLine_color_term = 239
 " let g:autoformat_autoindent = 0
 " let g:autoformat_retab = 0
 " let g:autoformat_remove_trailing_spaces = 0
-"
-
-" Vim-Matchup
-:hi MatchParen ctermbg=blue guibg=lightblue cterm=italic gui=italic
-

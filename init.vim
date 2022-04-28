@@ -8,6 +8,13 @@ Plug 'vim-scripts/Align'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'Chiel92/vim-autoformat'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"================================================
+" flutter
+"================================================
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
 
 "================================================
 " Blog
@@ -29,6 +36,7 @@ Plug 'tpope/vim-cucumber'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'majutsushi/tagbar' " list all methods in a file
+" Plug 'nickspoons/vim-sharpenup'
 " Plug 'neomake/neomake'
 " Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
@@ -52,10 +60,11 @@ Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'} "ubuntu 18.04 nee
 Plug 'kchmck/vim-coffee-script'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-ragtag'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'leafgarland/typescript-vim'
 
 
 "================================================
@@ -161,18 +170,19 @@ inoremap jj <ESC>
 nmap <leader>ww  :w<CR>
 imap <leader>ww  <ESC>:w<CR>
 noremap  ,, <C-\><C-N>
-noremap  L $
-noremap  H ^
-noremap  <C-e>e $
-inoremap <C-e>e $
-inoremap <C-a>a ^
+
+" like emacs
+noremap  <C-e> $
+inoremap <C-e> <ESC>$a
+noremap <C-a> ^
+inoremap <C-a> <ESC>^i
+noremap <C-f> l
+inoremap <C-f> <C-o>a
+noremap <C-b> h
+inoremap <C-b> <ESC>ha
+
 noremap! ,, <C-\><C-N>
 snoremap ,, <C-\><C-N>
-
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
 
 noremap <leader>q  :wq!<CR>
 nnoremap <leader>=  <C-W>=
@@ -226,6 +236,10 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
+
+
 " conjure
 let g:conjure_map_prefix=","
 let g:conjure_log_direction="horizontal"
@@ -236,7 +250,8 @@ let g:conjure_log_size_small=15
 let g:user_emmet_install_globa = 0
 autocmd FileType html,css EmmetInstall
 
-
+"deoplete
+let g:deoplete#enable_at_startup = 1
 
 " Disable documentation window
 set completeopt-=preview
@@ -249,7 +264,7 @@ let g:deoplete#sources={}
 let g:deoplete#sources._    = ['around', 'buffer', 'file', 'ultisnips']
 let g:deoplete#sources.ruby = ['around', 'buffer', 'member', 'file', 'ultisnips']
 let g:deoplete#sources.vim  = ['around', 'buffer', 'member', 'file', 'ultisnips']
-let g:deoplete#sources['javascript.jsx'] = ['around', 'buffer', 'file', 'ultisnips', 'ternjs']
+" let g:deoplete#sources['javascript.jsx'] = ['around', 'buffer', 'file', 'ultisnips', 'ternjs']
 let g:deoplete#sources.css  = ['around', 'buffer', 'member', 'file', 'omni', 'ultisnips']
 let g:deoplete#sources.scss = ['around', 'buffer', 'member', 'file', 'omni', 'ultisnips']
 let g:deoplete#sources.html = ['around', 'buffer', 'member', 'file', 'omni', 'ultisnips']
@@ -290,13 +305,15 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8']
 \}
-let g:ale_python_flake8_options='--max-line-length=120'
+let g:ale_python_flake8_options='--max-line-length=200'
 let g:ale_fixers = {
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['autopep8', 'isort'],
 \   'javascript': ['eslint'],
-\   'css': ['csslint'],
-\   'html': ['tidy'],
+\   'css': ['csslint']
 \}
+
+" \   'html': ['tidy'],
 let g:ale_fix_on_save = 1
 
 let g:ale_statusline_format = ['E:%d', 'W:%d', 'ok']
@@ -308,8 +325,8 @@ let g:ale_set_signs = 1
 let g:ale_sign_error = 'x'
 let g:ale_sign_warning = 'w'
 
-" Jsx
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+" " Jsx
+" let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 "for vim-autoformat
 "let g:autoformat_verbosemode=1
