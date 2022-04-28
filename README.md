@@ -32,7 +32,7 @@ C:\Users\bskin/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconten
 ```
 4. 開啟vim, 輸入 :PlugInstall
 
-$$## 灌choco
+## 灌choco
 
 - 以 "系統管理員身分" 進入 命令提示字元 , 輸入
 ```
@@ -55,7 +55,7 @@ plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/maste
 
 5. 開啟 nvim 輸入 :PlugInstall
 
-$$## map caps lock to control
+## map caps lock to control
 
   - Powershell in admin
 ```
