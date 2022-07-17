@@ -66,3 +66,8 @@ $kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout';
 New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Value ([byte[]]$hexified);
 ```
   - 重開機
+
+# SSH with Github
+- `ssh-keygen -t ed25519 -C "bskin0330@gmail.com"`
+- `nvim .ssh/id_ed25519.pub` 複製至github內
+- `ssh -T git@github.com` 測試看是否有連上
